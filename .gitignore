@@ -1,0 +1,35 @@
+.venv/
+# 🔁 Node (frontend)
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+
+# 🐘 Symfony (backend)
+backend/var/
+backend/vendor/
+backend/.env.local
+
+# 🧠 Python (AI Agent)
+ai-agenten/__pycache__/
+ai-agenten/.venv/
+ai-agenten/.env
+ai-agenten/*.pyc
+
+# 🐳 Docker
+.env
+*.env
+*.log
+docker-compose.override.yml
+
+# 💻 OS & IDEs
+.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+
+# 🧪 Test Reports
+test-report.xml
+coverage/
