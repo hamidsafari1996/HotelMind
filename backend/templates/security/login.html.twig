@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anmeldung{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-md border border-gray-200">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Anmeldung</h2>
+                <p class="text-sm text-gray-600">Bitte melden Sie sich mit Ihren Zugangsdaten an</p>
+                
+                {% if error %}
+                    <div class="mt-4 p-3 text-sm text-red-700 bg-red-50 rounded-md border border-red-200">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mt-4 p-3 text-sm text-blue-700 bg-blue-50 rounded-md border border-blue-200">
+                        Sie sind bereits angemeldet als {{ app.user.userIdentifier }}
+                        <a href="{{ path('app_logout') }}" class="font-medium underline ml-2">Abmelden</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Form -->
+            <form method="post" class="space-y-5">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <!-- Username Field -->
+                <div class="space-y-1">
+                    <label for="username" class="block text-sm font-medium text-gray-700">
+                        Benutzername oder E-Mail
+                    </label>
+                    <input id="username" 
+                           name="username" 
+                           type="text" 
+                           required 
+                           value="{{ last_username }}"
+                           class="block w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           autocomplete="username"
+                           autofocus>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-1">
+                    <label for="password" class="block text-sm font-medium text-gray-700">
+                        Passwort
+                    </label>
+                    <input id="password" 
+                           name="password" 
+                           type="password" 
+                           required
+                           class="block w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           autocomplete="current-password">
+                </div>
+
+                <!-- Remember Me & Password Reset -->
+                <div class="flex items-center justify-between pt-2">
+                    <div class="flex items-center">
+                        <input id="_remember_me" 
+                               name="_remember_me" 
+                               type="checkbox"
+                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="_remember_me" class="ml-2 text-sm text-gray-700">
+                            Angemeldet bleiben
+                        </label>
+                    </div>
+
+                    <div>
+                        <a href="#" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                            Passwort vergessen?
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                            class="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors cursor-pointer">
+                        Anmelden
+                    </button>
+                </div>
+
+                <!-- Registration Link -->
+                <div class="text-center mt-6 text-sm text-gray-600">
+                    Noch kein Konto? 
+                    <a href="{{ path('app_registrierung') }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                        Jetzt registrieren
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

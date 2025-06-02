@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hotel index{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('app_reservation_new') }}">Create new</a>
+    <div x-data="{ sidebarOpen: false }" class="min-h-screen bg-gray-50 font-sans">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width" :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen, 'lg:translate-x-0': true}">
+        <div class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200">
+            <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
+                {% include 'base/_side_menu.html.twig' %}
+            </div>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <div class="bg-gray-50 p-4 lg:ml-64 pt-20">
+        <div class="mb-8">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-2">Hotelverwaltung Dashboard</h1>
+            <p class="text-gray-600">Willkommen zurück! Hier ist eine Übersicht Ihrer Hotels.</p>
+        </div>
+        {% include 'base/_table.html.twig' %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hotel{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto px-4 py-8 mt-20">
+        <h1 class="text-2xl font-bold mb-4">Hotel Details</h1>
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <table class="min-w-full divide-y divide-gray-200">
+                <tbody>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  
+                            <strong>ID:</strong>
+                            {{ hotel.id }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  
+                            <strong>Titel:</strong>
+                            {{ hotel.title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  
+                            <strong>Standort:</strong>
+                            {{ hotel.location }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">      
+                            <strong>Bild:</strong>
+                            {{ hotel.image }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  
+                            <strong>Preis:</strong>
+                            {{ hotel.price }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">      
+                            <strong>Tage:</strong>
+                            {{ hotel.days }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">    
+                            <strong>Person:</strong>
+                            {{ hotel.person }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">    
+                            <strong>Info:</strong>
+                            {{ hotel.info }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm text-gray-500 ">    
+                            <strong>Beschreibung:</strong>
+                            {{ hotel.description }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">        
+                            <strong>Erstellt am:</strong>
+                            {{ hotel.createdAt ? hotel.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+            <div class="flex justify-between mt-8 mb-4">
+                <a href="{{ path('app_reservation_index') }}" class="px-5 py-2.5 bg-black text-white flex items-center gap-2 font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-opacity-50 hover:bg-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                    </svg>
+                    Zurück zur Liste
+                </a>
+                
+                <div class="flex items-center gap-3">
+                    <a href="{{ path('app_reservation_edit', {'id': hotel.id}) }}" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        <span class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                            </svg>
+                            Bearbeiten
+                        </span>
+                    </a>
+                    
+                    <div class="inline-block">
+                        {{ include('reservation/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    
+{% endblock %}

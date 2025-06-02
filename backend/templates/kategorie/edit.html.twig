@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bearbeiten Kategorie{% endblock %}
+
+{% block body %}
+    <h1>Bearbeiten Kategorie</h1>
+
+    {{ include('kategorie/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <div class="mx-auto max-w-2xl bg-white p-8 rounded-xl shadow-md space-y-6 border border-gray-100">
+        {{ include('kategorie/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

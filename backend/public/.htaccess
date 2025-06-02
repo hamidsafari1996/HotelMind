@@ -1,0 +1,13 @@
+# Enable the rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Optional: Disable HTTPS redirect
+    RewriteCond %{HTTPS} on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Symfony front controller
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>

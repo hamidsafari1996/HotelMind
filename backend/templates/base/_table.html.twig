@@ -1,0 +1,46 @@
+<!-- Upcoming Bookings -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800">Buchungen</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">ID</th>
+                            <th scope="col" class="px-6 py-3">Hotel</th>
+                            <th scope="col" class="px-6 py-3">Kategorie</th>
+                            <th scope="col" class="px-6 py-3">Check-in</th>
+                            <th scope="col" class="px-6 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for hotel in hotels %}
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ hotel.id }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hotel.title }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hotel.kategorie }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ hotel.createdAt ? hotel.createdAt|date('Y-m-d H:i:s') : '' }}
+                            </td>
+                            <td class="px-6 py-4 flex items-center gap-2">
+                                <a href="http://localhost:3000/hotel/{{ path('app_reservation_show', {'id': hotel.id}) }}" class="font-medium text-primary-600 hover:text-primary-700 mr-3">Anzeigen</a>
+                                <a href="{{ path('app_reservation_edit', {'id': hotel.id}) }}" class="font-medium text-primary-600 hover:text-primary-700 mr-3">Bearbeiten</a>
+                                {{ include('reservation/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="11">Keine Buchungen gefunden</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bearbeiten Hotel{% endblock %}
+
+{% block body %}
+    <h1>Bearbeiten Hotel</h1>
+
+    {{ include('reservation/_form.html.twig', {'button_label': 'Aktualisieren'}) }}
+
+    <div class="mx-auto max-w-2xl bg-white p-8 rounded-xl shadow-md space-y-6 border border-gray-100">
+        {{ include('reservation/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

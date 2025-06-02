@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <header>
+        <nav class="bg-blue-500 border-b border-gray-200 fixed top-0 z-30 w-full">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start">
+                    <button @click="sidebarOpen = !sidebarOpen" aria-expanded="true" aria-controls="sidebar" class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <a href="{{ path('app_reservation_index') }}" class="text-xl font-bold flex items-center lg:ml-2.5">
+                        <span class="text-white"><i class="fa-solid fa-hotel mr-2"></i>Check24</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        {% if app.user %}
+                        <button type="button" class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-300">
+                            <span class="sr-only">View notifications</span>
+                            <i class="fa-regular fa-bell text-lg"></i>
+                        </button>
+                        
+                        <div x-data="{ open: false }" class="ml-3 relative">
+                            <div>
+                                <button @click="open = !open" type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300" id="user-menu-button">
+                                    <span class="sr-only">Open user menu</span>
+                                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                </button>
+                            </div>
+                            <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{{ app.user.username }}</li>
+                                <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="mr-4">
+                                <a href="{{ path('app_login') }}" class="text-blue-600 hover:text-blue-800 font-medium">Anmelden &rarr;</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </nav>
+    </header>

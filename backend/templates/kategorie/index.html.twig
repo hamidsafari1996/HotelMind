@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kategorie index{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto px-4 py-8 mt-20">
+        <h1 class="text-2xl font-bold mb-4">Kategorie Liste</h1>
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            ID
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Name
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Aktionen
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            
+                        </th>
+                    </tr>   
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for kategorie in kategories %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  
+                                {{ kategorie.id }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ kategorie.name }}
+                            </td>   
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <a href="{{ path('app_kategorie_show', {'id': kategorie.id}) }}" class="text-blue-500 hover:text-blue-700">
+                                    Anzeigen
+                                </a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex gap-2">
+                                <a href="{{ path('app_kategorie_edit', {'id': kategorie.id}) }}" class="text-blue-500 hover:text-blue-700">
+                                    Bearbeiten
+                                </a>
+                                {{ include('kategorie/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+            <div class="mt-6">
+                <a href="{{ path('app_kategorie_new') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Neue Kategorie erstellen
+                </a>
+            </div>
+        </div>
+    </div>  
+    {% endblock %}

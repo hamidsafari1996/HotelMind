@@ -1,0 +1,126 @@
+{# {{ form_start(form) }} #}
+    {# {{ form_widget(form) }} #}
+    
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'class': 'mx-auto max-w-2xl bg-white p-8 rounded-xl shadow-md space-y-6 mb-12 mt-21 border border-gray-100'}}) }}
+    
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">Neue Reservierung</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Title Field -->
+        <div>
+            {{ form_label(form.title, 'Titel', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.title, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.title, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+        <!-- Location Field -->
+        <div>
+            {{ form_label(form.location, 'Standort', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.location, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.location, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Kategorie Field -->
+        <div>
+            {{ form_label(form.kategorie, 'Kategorie', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.kategorie, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.kategorie, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+        <!-- User Rating Field -->
+        <div>
+            {{ form_label(form.rating, 'Bewertung', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.rating, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors', 'step': '0.1', 'min': '0', 'max': '10'}}) }}
+            <p class="text-xs text-gray-500 mt-1">Bewertung von 0 bis 10 (z.B. 8.5)</p>
+            {{ form_errors(form.rating, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+
+        <!-- Stars Field -->
+        <div>
+            {{ form_label(form.stars, 'Sterne', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.stars, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors', 'min': '1', 'max': '5'}}) }}
+            <p class="text-xs text-gray-500 mt-1">Hotelkategorie (1-5 Sterne)</p>
+            {{ form_errors(form.stars, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Price Field -->
+        <div>
+            {{ form_label(form.price, 'Preis (€)', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.price, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.price, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+        
+        <!-- Days Field -->
+        <div>
+            {{ form_label(form.days, 'Tage', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.days, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.days, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+        
+        <!-- Person Field -->
+        <div>
+            {{ form_label(form.person, 'Personen', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.person, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+            {{ form_errors(form.person, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+    </div>
+    
+    <!-- Info Field -->
+    <div>
+        {{ form_label(form.info, 'Kurzinfo', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+        {{ form_widget(form.info, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+        {{ form_errors(form.info, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+    </div>
+
+    <!-- Description Field -->
+    <div>
+        {{ form_label(form.description, 'Beschreibung', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'ckeditor'}}) }}
+        {{ form_errors(form.description, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+    </div>
+    <!-- Created At Field -->
+    <div>
+        {{ form_label(form.created_at, 'Erstellungsdatum', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+        {{ form_widget(form.created_at, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'}}) }}
+        {{ form_errors(form.created_at, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+    </div>
+
+    <!-- Image Upload -->
+    <div class="bg-gray-50 p-4 rounded-lg border border-dashed border-gray-300 cursor-pointer">
+        {{ form_label(form.image, 'Bild hochladen', {'label_attr': {'class': 'block text-sm font-semibold text-gray-700 mb-1'}}) }}
+        {{ form_widget(form.image, {'attr': {'class': 'mt-1 w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer'}}) }}
+        <p class="text-xs text-gray-500 mt-1">PNG, JPG oder GIF bis zu 10MB</p>
+        {{ form_errors(form.image, {'attr': {'class': 'text-red-500 text-xs mt-1 cursor-pointer'}}) }}
+    </div>
+    {% if app.request.attributes.get('_route') == 'app_reservation_edit' %}
+        <div class="mt-4 mb-4">
+            <p class="text-sm font-medium text-gray-700 mb-2">Aktuelles Bild:</p>
+            {% if hotel.image %}
+                <img src="{{ asset('uploads/images/' ~ hotel.image) }}" alt="Aktuelles Bild" class="w-48 rounded-lg shadow-md">
+            {% else %}
+                <p class="text-sm text-gray-500 italic">Kein Bild vorhanden</p>
+            {% endif %}
+        </div>
+    {% endif %}
+    <!-- Submit Button -->
+    <div class="flex justify-between">
+        <div class="flex flex-col justify-end pt-4 border-t border-gray-100">
+            <a href="{{ path('app_reservation_index') }}" class="px-5 py-2.5 bg-black text-white flex items-center gap-2 font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-opacity-50 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                Zurück zur Liste
+            </a>
+            
+        </div>
+        <div class="flex justify-end pt-4 border-t border-gray-100">
+            
+            <button type="button" class="mr-3 px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors cursor-pointer">
+                Abbrechen
+            </button>
+            <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 cursor-pointer">
+                {{ button_label|default('Speichern') }}
+            </button>
+        </div>
+    </div>
+{{ form_end(form) }}
