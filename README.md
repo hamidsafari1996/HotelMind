@@ -23,7 +23,7 @@ Everything is fully **Dockerized**, making setup and deployment fast and consist
 
 ### 1. Clone the repository
 ```
-git clone https://github.com/YOUR_USERNAME/hotelmind.git
+https://github.com/hamidsafari1996/HotelMind.git
 cd hotelmind
 ```
 ### 2. Run the project with Docker
