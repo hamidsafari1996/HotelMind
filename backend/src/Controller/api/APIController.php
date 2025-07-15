@@ -9,8 +9,17 @@ use App\Entity\Hotel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * API Controller for hotel data.
+ * Provides endpoints for accessing hotel information in JSON format.
+ * Includes CORS headers for cross-origin requests from localhost:3000.
+ */
 final class APIController extends AbstractController
 {
+    /**
+     * Handles OPTIONS requests for CORS preflight.
+     * Sets appropriate CORS headers to allow cross-origin requests.
+     */
     #[Route('/api/hotels', name: 'app_api_options', methods: ['OPTIONS'])]
     public function optionsHotels(): JsonResponse
     {
@@ -20,6 +29,11 @@ final class APIController extends AbstractController
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
         return $response;
     }
+
+    /**
+     * Retrieves all hotels.
+     * Returns a JSON array containing all hotel data with their categories.
+     */
     #[Route('/api/hotels', name: 'app_api')]
     public function getHotels(EntityManagerInterface $entityManager): JsonResponse
     {
@@ -53,6 +67,10 @@ final class APIController extends AbstractController
         return $response;
     }
     
+    /**
+     * Retrieves a specific hotel by ID.
+     * Returns detailed information about the requested hotel or a 404 error if not found.
+     */
     #[Route('/api/hotels/{id}', name: 'app_api_hotel_by_id', methods: ['GET'])]
     public function getHotelById(int $id, EntityManagerInterface $entityManager): JsonResponse
     {
