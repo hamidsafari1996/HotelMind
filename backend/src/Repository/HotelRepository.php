@@ -11,9 +11,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class HotelRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructor for the HotelRepository.
+     * Initializes the repository with the Hotel entity.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Hotel::class);
+    }
+
+    /**
+     * Finds all hotels with their associated category.
+     * Returns an array of Hotel objects with their category data.
+     */
+    public function findAllWithCategory(): array
+    {
+        return $this->createQueryBuilder('h')
+            ->leftJoin('h.kategorie', 'k')
+            ->addSelect('k')
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**
