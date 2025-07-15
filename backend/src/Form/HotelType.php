@@ -13,8 +13,16 @@ use App\Entity\Kategorie;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
+/**
+ * Form type for Hotel entity.
+ * Defines the form fields and validation for creating and editing hotel entries.
+ */
 class HotelType extends AbstractType
 {
+    /**
+     * Builds the hotel form with all required fields.
+     * Includes text fields, image upload, rating, stars, and relationship to Kategorie.
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -26,14 +34,14 @@ class HotelType extends AbstractType
             ])
             ->add('image', FileType::class, 
             [
-                'mapped' => false,
+                'mapped' => false, // Not directly mapped to entity property
                 'required' => false,
                 'attr' => ['accept' => 'image/*'],
             ])
             ->add('rating', NumberType::class, [
                 'label' => 'Rating',
                 'required' => false,
-                'scale' => 1,
+                'scale' => 1, // One decimal place
                 'attr' => [
                     'min' => 0,
                     'max' => 10,
@@ -59,6 +67,10 @@ class HotelType extends AbstractType
         ;
     }
 
+    /**
+     * Configures the options for this form type.
+     * Sets the data_class to Hotel entity.
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
