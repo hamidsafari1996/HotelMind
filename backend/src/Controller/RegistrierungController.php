@@ -15,11 +15,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
+/**
+ * Controller for handling user registration.
+ * Provides functionality to create new user accounts.
+ */
 final class RegistrierungController extends AbstractController
 {
+    /**
+     * Handles the registration process.
+     * Creates a registration form, validates input, checks for existing users,
+     * and creates a new user with a hashed password if validation passes.
+     */
     #[Route('/register', name: 'app_registrierung')]
     public function registrierung(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
+        // Create registration form with username and password fields
         $registerForm = $this->createFormBuilder()
             ->add('username', TextType::class, [
                 'label' => 'Mitarbeiter',
@@ -37,6 +47,7 @@ final class RegistrierungController extends AbstractController
         if ($registerForm->isSubmitted() && $registerForm->isValid()) {
             $eingabe = $registerForm->getData();
             
+            // Check if user already exists
             $existingUser = $entityManager->getRepository(User::class)
                 ->findOneBy(['username' => $eingabe['username']]);
 
@@ -45,6 +56,7 @@ final class RegistrierungController extends AbstractController
                 return $this->redirectToRoute('app_registrierung');
             }
 
+            // Create and persist new user
             $user = new User();
             $user->setUsername($eingabe['username']);
             $user->setPassword($passwordHasher->hashPassword($user, $eingabe['password']));
