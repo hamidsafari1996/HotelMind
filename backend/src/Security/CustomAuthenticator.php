@@ -25,6 +25,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 
+/**
+ * Custom authentication handler for the application.
+ * Extends Symfony's AbstractLoginFormAuthenticator to provide form-based authentication.
+ * Handles user login with username/password and CSRF protection.
+ */
 class CustomAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -36,6 +41,9 @@ class CustomAuthenticator extends AbstractLoginFormAuthenticator
     private CsrfTokenManagerInterface $csrfTokenManager;
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructor to inject required dependencies.
+     */
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $passwordHasher)
     {
         $this->entityManager = $entityManager;
@@ -44,12 +52,21 @@ class CustomAuthenticator extends AbstractLoginFormAuthenticator
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Determines if this authenticator should be used for the current request.
+     * Only supports POST requests to the login route.
+     */
     public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
+    /**
+     * Authenticates the user based on the login form submission.
+     * Creates a Passport with user credentials and CSRF token validation.
+     * Throws an exception if the user is not found.
+     */
     public function authenticate(Request $request): Passport
     {
         $username = $request->request->get('username', '');
@@ -76,6 +93,10 @@ class CustomAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * Handles successful authentication.
+     * Redirects to the target path if available, otherwise to the login page.
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -85,6 +106,9 @@ class CustomAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('app_login'));
     }
 
+    /**
+     * Returns the URL to the login page.
+     */
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
