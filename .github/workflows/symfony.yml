@@ -44,7 +44,7 @@ jobs:
       - name: Set APP_ENV and DATABASE_URL
         run: |
           echo "APP_ENV=test" >> $GITHUB_ENV
-          echo "DATABASE_URL=mysql://symfony:symfony@127.0.0.1:3306/test_database" >> $GITHUB_ENV
+          echo "DATABASE_URL=mysql://symfony:symfony@127.0.0.1:3306/test_database_test" >> $GITHUB_ENV
 
       - name: Copy .env.test.local if needed
         run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
