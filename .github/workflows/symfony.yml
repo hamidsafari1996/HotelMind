@@ -43,7 +43,7 @@ jobs:
       - name: Set environment variables
         run: |
           echo "APP_ENV=test" >> $GITHUB_ENV
-          echo "DATABASE_URL=mysql://symfony:pass@127.0.0.1:3306/backend" >> $GITHUB_ENV
+          echo "DATABASE_URL=mysql://symfony:pass@127.0.0.1:3306/backend_test" >> $GITHUB_ENV
           echo "MESSENGER_TRANSPORT_DSN=doctrine://default" >> $GITHUB_ENV
 
 
@@ -81,3 +81,5 @@ jobs:
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
         working-directory: backend
+        env:
+          DATABASE_URL: mysql://symfony:pass@127.0.0.1:3306/backend_test
