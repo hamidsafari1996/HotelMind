@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Symfony
+name: Symfony CI
 
 on:
   push:
@@ -11,47 +11,46 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
-  symfony-tests:
+  tests:
     runs-on: ubuntu-latest
+
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_database_test
+          MYSQL_DATABASE: backend_test
           MYSQL_USER: symfony
-          MYSQL_PASSWORD: symfony
+          MYSQL_PASSWORD: pass
         ports:
           - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: shivammathur/setup-php@v2
+      - name: Set PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: mbstring, intl, pdo_mysql
 
-      - name: Set APP_ENV and DATABASE_URL
+      - name: Set environment variables
         run: |
           echo "APP_ENV=test" >> $GITHUB_ENV
-          echo "DATABASE_URL=mysql://symfony:symfony@127.0.0.1:3306/test_database_test" >> $GITHUB_ENV
+          echo "DATABASE_URL=mysql://symfony:pass@127.0.0.1:3306/backend" >> $GITHUB_ENV
+        # ⚠ Symfony خودش _test به انتهای اسم دیتابیس اضافه می‌کنه
 
       - name: Copy .env.test.local if needed
         run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
         working-directory: backend
 
-      - name: Cache Composer packages
-        id: composer-cache
+      - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
           path: backend/vendor
@@ -59,17 +58,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
         working-directory: backend
 
       - name: Wait for MySQL to be ready
-        run: sleep 15
+        run: |
+          echo "Waiting for MySQL..."
+          until mysqladmin ping -h 127.0.0.1 -u symfony -ppass --silent; do
+            sleep 2
+          done
 
-      - name: Run Doctrine migrations on test database
+      - name: Run migrations
         run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
         working-directory: backend
 
-      - name: Execute tests via PHPUnit
+      - name: Run PHPUnit tests
         run: vendor/bin/phpunit
         working-directory: backend
