@@ -25,8 +25,11 @@ jobs:
           php-version: '8.2'
           extensions: mbstring, intl, pdo_sqlite
 
-      - name: Set environment to test
+      - name: Set APP_ENV
         run: echo "APP_ENV=test" >> $GITHUB_ENV
+
+      - name: Set DATABASE_URL for cache:clear
+        run: echo "DATABASE_URL=sqlite:///%kernel.project_dir%/data/database.sqlite" >> $GITHUB_ENV
 
       - name: Copy .env.test.local if needed
         run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
