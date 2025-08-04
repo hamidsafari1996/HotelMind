@@ -22,7 +22,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_database
+          MYSQL_DATABASE: test_database_test
           MYSQL_USER: symfony
           MYSQL_PASSWORD: symfony
         ports:
